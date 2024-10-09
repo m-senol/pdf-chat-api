@@ -1,5 +1,6 @@
 from os import getenv
 from dotenv import load_dotenv
+import logging
 
 load_dotenv()
 
@@ -7,7 +8,7 @@ load_dotenv()
 DATABASE_URL = getenv("DATABASE_URL")
 
 
-MAX_FILE_SIZE = 100*1024 # 100 kB
+MAX_FILE_SIZE = 1024 * 100  # 100 kB
 
 
 FILE_TOO_BIG_ERROR_CODE = 400
@@ -28,7 +29,15 @@ TIMEOUT_ERROR_TEXT = "The request to the Gemini API timed out. Please try again 
 RATE_LIMIT_ERROR_CODE = 429
 RATE_LIMIT_ERROR_TEXT = "Rate limit exceeded. Please try again later."
 
+NO_MESSAGE_ERROR_CODE = 400
+NO_MESSAGE_ERROR_TEXT = "Message is required"
+
 GENERAL_ERROR_CODE = 500
 GENERAL_ERROR_MESSAGE = "An unexpected error occurred!"
 
 TIMEOUT_TIME = 10
+
+LOG_OUT_PATH = "./app.log"
+LOG_MAX_BYTES = 1024 * 1 # 100 kB
+LOG_BACKUP_COUNT = 2
+LOG_LEVEL = logging.INFO

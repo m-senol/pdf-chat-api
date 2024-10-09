@@ -166,3 +166,7 @@ pdfs/
 
 # editor
 *.vscode
+
+# logging
+*.log
+*.log.*

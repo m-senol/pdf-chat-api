@@ -2,10 +2,10 @@ from fastapi import FastAPI
 from .routes import router as api_router
 
 from .models import metadata
-from sqlalchemy import create_engine
-from .config import DATABASE_URL
 from .db import database, engine
 from contextlib import asynccontextmanager
+
+from .middleware import ErrorMiddleware
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -19,6 +19,7 @@ async def lifespan(app: FastAPI):
     await database.disconnect()
 
 app = FastAPI(lifespan=lifespan)
+app.add_middleware(ErrorMiddleware)
 app.include_router(api_router)
 
 @app.get("/")
