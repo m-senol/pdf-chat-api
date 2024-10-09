@@ -95,3 +95,17 @@ Execute the following command to run the test:
 ```bash
 pytest
 ```
+
+# Problems To Tackle (Bonus)
+
+- **Problem 1:** Is using the Gemini 1.5 Flash that has 1 Million  context size enough or Retrieval-Augmented Generation (RAG) is a  better approach ?
+
+    Both options have advantages and challenges. Retrieval-Augmented Generation (RAG) is harder to implement but it is more efficient, scale better with larger documents and may give more accurate responses.
+
+- **Problem 2:** Having 1 Million context size is great but output tokens are limited to 8196, how would you queries that has more than 8196 tokens?
+
+    We can try to summerize the output or get the response in parts.
+
+- **Problem 3:** Writing unit tests are great for ensuring the app works just fine, but how would you evaluate the performance of the Large Language Model?
+
+    We can always test the latency and the response time the conventional way. We also can always test the quality of responses via human evaluaters. But for a more automatic test, we can try to test the accuracy with short questions that we know the answer to, we can evaluate the answers with an other llm or try to come up with some metrics for the responses and evaluate them base on those metrics.
