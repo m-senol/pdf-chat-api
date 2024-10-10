@@ -14,7 +14,8 @@ from pdf_processing.validation import validate_file_size, validate_file_type
 from fastapi import UploadFile, HTTPException
 from clients.gemini_client import gemini_request, RateLimitError
 from .logger import logger
-from functools import lru_cache
+from cachetools import cached
+from .cache import cache
 
 
 async def validate_file(file: UploadFile):
@@ -43,7 +44,7 @@ async def extract_info_from_pdf(contents: bytes) -> tuple:
         raise HTTPException(status_code=PDF_PROCESSING_ERROR_CODE, detail=f"{PDF_PROCESSING_ERROR_TEXT}: {str(e)}")
     return extracted_text, page_count
 
-@lru_cache(maxsize=MAX_CACHE_SIZE)
+@cached(cache)
 async def get_ai_response(pdf_content: str, user_message: str) -> str:
     context = "respond to this user's message based on the provided text"
     prompt = [context, user_message, pdf_content]
